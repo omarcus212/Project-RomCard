@@ -13,8 +13,14 @@ final class AwaitingReleaseController
     {
         
         $productionDAO = new AwaitingReleaseDAO();
+        
+        $production = [
 
-        $production = $productionDAO -> getAllAwaitingRelease();
+            $productionDAO -> getAllAwaitingReleaseChip(),
+            $productionDAO -> getAllAwaitingReleaseTarja()
+
+        ];
+
         
         $response = $response -> withJson($production);
 
