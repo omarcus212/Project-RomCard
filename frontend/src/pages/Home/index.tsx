@@ -9,11 +9,12 @@ const PageHome: React.FC = () => {
 
     const [inProductionData, setInProductionData] = useState([]);
     const [awaitingReleaseData, setAwaitingRelease] = useState([]);
+    const [awaitingReleaseData2, setAwaitingRelease2] = useState([]);
     const [typeMessageInProduction, setTypeMessageInProduction] = useState(false);
     const [typeMessageAwaitingRelease, setTypeMessageAwaitingRelease] = useState(false);
-    const [formValues, setFormValues] = useState({Type: "tarja"})
+    const [formValues, setFormValues] = useState({ Type: "tarja" })
 
-const handleChange = (e: any) => {
+    const handleChange = (e: any) => {
         setFormValues({
             ...formValues,
             [e.target.name]: e.target.value
@@ -54,25 +55,30 @@ const handleChange = (e: any) => {
             sortable: true
         },
     ];
-    
+
     const columnsAwaitingRelease: Array<Object> = [
         {
-            name: 'Ordem de produção',
-            selector: (row: any) => row.id_ordem_producao_status,
+            name: 'Codigo do produto',
+            selector: (row: any) => row.cod_produto,
             sortable: true
         },
         {
-            name: 'Id op',
-            selector: (row: any) => row.id_op
+            name: 'Nome do arquivo',
+            selector: (row: any) => row.nome_arquivo_proc
+
+        },
+        {
+            name: 'Desc do Produto',
+            selector: (row: any) => row.desc_produto
 
         },
         {
             name: 'Data de entrada',
-            selector: (row: any) => row.dt_status
+            selector: (row: any) => row.dt_processamento
         },
         {
             name: 'Data de liberação',
-            selector: (row: any) => row.dt_finalizado
+            selector: (row: any) => row.dt_expedicao
         }
     ];
 
@@ -80,25 +86,38 @@ const handleChange = (e: any) => {
 
         const HomePageRequests = async () => {
 
-            await api.post('/production',{tipo : formValues.Type})
+            await api.post('/production', { tipo: formValues.Type })
                 .then((data) => {
-                    console.log(data.data)
                     setInProductionData(data.data)
                 }).catch(() => {
                     setTypeMessageInProduction(true)
                 });
 
             await api.get('/awaiting-release')
-                .then((data) => {                          
-                    setAwaitingRelease(data.data)
+                .then((data) => {
+                    if(formValues.Type == "tarja"){
+                        setAwaitingRelease(data.data[1])    
+                    }else{
+                        setAwaitingRelease(data.data[0]) 
+                    }
+                     
                 }).catch(() => {
                     setTypeMessageAwaitingRelease(true)
                 });
         }
 
-       HomePageRequests()
+        HomePageRequests()
 
     }, [formValues]);
+
+   
+
+    
+
+
+   
+
+
 
     return (
         <div className="container-page-home">
@@ -107,19 +126,19 @@ const handleChange = (e: any) => {
 
             <Select info={"Selecione o tipo de cartão:"} name="Type" onChange={handleChange}>
 
-            <option value="tarja" selected>Tarja</option>
+                <option value="tarja" selected>Tarja</option>
 
-            <option value="chip">Chip</option>
+                <option value="chip">Chip</option>
 
             </Select>
 
             <Table
-                data={Array.isArray(inProductionData)  ? inProductionData : [] }
+                data={Array.isArray(inProductionData) ? inProductionData : []}
                 column={columnsInProduction}
                 titleTable="Em produção"
                 typeMessage={typeMessageInProduction}
-                
-                
+
+
             />
 
             <Table

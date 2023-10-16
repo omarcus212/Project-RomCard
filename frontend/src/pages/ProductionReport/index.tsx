@@ -58,15 +58,7 @@ const PageProductionReport: React.FC = () => {
         {
             name: 'Total de cartões',
             selector: (row: any) => row.total_cartoes
-        },
-        {
-            name: 'Status',
-            selector: (row: any) => row.status
-        },
-        {
-            name: 'Rastreio',
-            selector: (row: any) => row.rastreio  
-        },
+        }
     ];
 
 
@@ -86,6 +78,8 @@ const PageProductionReport: React.FC = () => {
                     expedicaoInicial: formValues.InitialShippingDate,
                     expedicaoFinal: formValues.FinalShippingDate
                 }).then((data) => {
+
+                    console.log(data.data);
 
                     setProductionReportData(data.data)
 

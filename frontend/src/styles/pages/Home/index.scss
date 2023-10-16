@@ -1,6 +1,13 @@
 .container-page-home {
 
     margin-bottom: 70px;
+
+    .container-select {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-direction: column;
+    }
     
     .image-logo-up {
         display: flex;

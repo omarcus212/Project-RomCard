@@ -37,7 +37,7 @@ final class AuthController
             }
         }
 
-        $expiredDate = (new \DateTime('now', new \DateTimeZone('America/Sao_Paulo')))->modify('+7 hours')->format('Y-m-d H:i:s');
+        $expiredDate = (new \DateTime('now', new \DateTimeZone('America/Sao_Paulo')))->modify('+10 hours')->format('Y-m-d H:i:s');
 
         $userDAO = new UsersDAO();
 
