@@ -106,11 +106,10 @@ const PageUsers: React.FC = () => {
     const searchUser = async () => {
 
         if (searchUserText && emailVerification) {
-            await api.post('/searchUser', {
+            await api.post('', {
                 email: searchUserText
             })
                 .then((data) => {
-                    console.log('tesete erro')
                     setUsers([])
                     setUsers(data.data);
                 }).catch((error) => {
@@ -126,8 +125,8 @@ const PageUsers: React.FC = () => {
 
     const { onDownload } = useDownloadExcel({
         currentTableRef: tableRef.current,
-        filename: "Web Users",
-        sheet: "Web Users"
+        filename: "Usuarios RomCard",
+        sheet: "Usuarios RomCard"
     })
 
 
@@ -141,6 +140,7 @@ const PageUsers: React.FC = () => {
             <div className="container-input-search">
 
                 <Input validate={() => ValidateEmailInput()} clickIcon={() => searchUser()} info="Pesquisar por email:" icon="search" onChange={(value: any) => setSearchUserText(value.target.value)} />
+                
                 {!emailVerification ? <p>O e-mail inserido não é valido.</p> : null}
                 
             </div>
@@ -149,7 +149,7 @@ const PageUsers: React.FC = () => {
 
                 <div className="scroll-table">
 
-                    <table >
+                    <table ref={tableRef}>
 
                         <tbody>
 
@@ -190,7 +190,7 @@ const PageUsers: React.FC = () => {
 
             </div>
 
-            <DownloadFacilitators textButton="Criar usuario" onClickButton={() => AddUser()} />
+            <DownloadFacilitators excelClick={() => onDownload()} printClick={() => window.print()} textButton="Criar usuario" onClickButton={() => AddUser()} />
 
             {
                 modal &&
@@ -200,6 +200,7 @@ const PageUsers: React.FC = () => {
         </div>
 
     )
+    
 }
 
 export default PageUsers

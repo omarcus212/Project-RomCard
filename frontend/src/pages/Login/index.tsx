@@ -100,7 +100,7 @@ const PageLoguin: React.FC = () => {
 
                     <div className="container-logos">
                         <div className="image-logo-client-red">
-                            <img src='' alt="Logo up" />
+                            <img src='https://www.romcard.com.br/wp-content/uploads/sites/207/2017/07/RomCard-Lian-200.png' alt="Logo up" />
 
                         </div>
                         <div className="image-logo-up">
@@ -139,7 +139,7 @@ const PageLoguin: React.FC = () => {
                     </div>
                 </div>
             </div>
-            <footer><p>Copyright 2023 © | Up Technology by Ezequiel Mathias</p></footer>
+            <footer><p>Copyright 2023 © | Up Technology by Marcus Vinncius</p></footer>
 
         </div>
     )
